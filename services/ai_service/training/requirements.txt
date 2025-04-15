@@ -1,0 +1,8 @@
+# training/requirements.txt
+tensorflow
+scikit-learn
+pandas
+numpy
+joblib
+matplotlib
+seaborn

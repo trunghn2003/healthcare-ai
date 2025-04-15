@@ -1,0 +1,43 @@
+# docker-compose.yml
+version: '3.8'
+services:
+  gateway:
+    build:
+      context: .
+      dockerfile: ./services/gateway/Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./shared:/app/shared
+    depends_on:
+      - patient-service
+      - ai-service
+  patient-service:
+    build:
+      context: .
+      dockerfile: ./services/patient_service/Dockerfile
+    ports:
+      - "8001:8000"
+    volumes:
+      - ./shared:/app/shared
+    depends_on:
+      - mongodb
+
+  ai-service:
+    build:
+      context: .
+      dockerfile: ./services/ai_service/Dockerfile
+    ports:
+      - "8002:8000"
+    volumes:
+      - ./shared:/app/shared
+
+  mongodb:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+
+volumes:
+  mongodb_data:

@@ -1,0 +1,357 @@
+{
+    "info": {
+        "_postman_id": "e4f6d512-3846-4b8a-b9b3-8f7d9c45e0f3",
+        "name": "Healthcare AI System",
+        "description": "Collection of API endpoints for Healthcare AI System",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Gateway",
+            "item": [
+                {
+                    "name": "Check Gateway Status",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "http://localhost:8000/",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "8000",
+                            "path": [
+                                ""
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Health Check",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "http://localhost:8000/api/health",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "8000",
+                            "path": [
+                                "api",
+                                "health"
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Patients",
+            "item": [
+                {
+                    "name": "Get All Patients",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "http://localhost:8000/api/patients",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "8000",
+                            "path": [
+                                "api",
+                                "patients"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Create Patient",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"name\": \"Nguyễn Văn A\",\n  \"date_of_birth\": \"1985-05-15\",\n  \"gender\": \"male\",\n  \"contact\": \"0901234567\",\n  \"medical_history\": [\"high blood pressure\", \"type 2 diabetes\"]\n}"
+                        },
+                        "url": {
+                            "raw": "http://localhost:8000/api/patients",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "8000",
+                            "path": [
+                                "api",
+                                "patients"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Get Patient by ID",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "http://localhost:8000/api/patients/{{patient_id}}",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "8000",
+                            "path": [
+                                "api",
+                                "patients",
+                                "{{patient_id}}"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Update Patient",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"name\": \"Nguyễn Văn A\",\n  \"date_of_birth\": \"1985-05-15\",\n  \"gender\": \"male\",\n  \"contact\": \"0909876543\",\n  \"medical_history\": [\"high blood pressure\", \"type 2 diabetes\", \"cholesterol\"]\n}"
+                        },
+                        "url": {
+                            "raw": "http://localhost:8000/api/patients/{{patient_id}}",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "8000",
+                            "path": [
+                                "api",
+                                "patients",
+                                "{{patient_id}}"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Delete Patient",
+                    "request": {
+                        "method": "DELETE",
+                        "url": {
+                            "raw": "http://localhost:8000/api/patients/{{patient_id}}",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "8000",
+                            "path": [
+                                "api",
+                                "patients",
+                                "{{patient_id}}"
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "AI Predictions",
+            "item": [
+                {
+                    "name": "Predict Disease",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"features\": [6.2, 148, 72, 35, 0, 33.6, 0.627, 50, 1, 1]\n}"
+                        },
+                        "url": {
+                            "raw": "http://localhost:8000/api/predict",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "8000",
+                            "path": [
+                                "api",
+                                "predict"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Predict Disease (Alternate)",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"features\": [6.2, 148, 72, 35, 0, 33.6, 0.627, 50, 1, 1]\n}"
+                        },
+                        "url": {
+                            "raw": "http://localhost:8000/api/predict/disease",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "8000",
+                            "path": [
+                                "api",
+                                "predict",
+                                "disease"
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Health Assessments",
+            "item": [
+                {
+                    "name": "Create Health Assessment",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"features\": [6.2, 148, 72, 35, 0, 33.6, 0.627, 50, 1, 1],\n  \"notes\": \"Bệnh nhân có dấu hiệu mệt mỏi, tăng khát nước\",\n  \"recommendations\": [\"Giảm lượng đường tiêu thụ\", \"Tăng cường vận động\"]\n}"
+                        },
+                        "url": {
+                            "raw": "http://localhost:8000/api/patients/{{patient_id}}/health-assessment",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "8000",
+                            "path": [
+                                "api",
+                                "patients",
+                                "{{patient_id}}",
+                                "health-assessment"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Get Patient Health Assessments",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "http://localhost:8000/api/patients/{{patient_id}}/health-assessments",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "8000",
+                            "path": [
+                                "api",
+                                "patients",
+                                "{{patient_id}}",
+                                "health-assessments"
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Direct Service Access",
+            "item": [
+                {
+                    "name": "Patient Service Status",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "http://localhost:8001/",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "8001",
+                            "path": [
+                                ""
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "AI Service Status",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "http://localhost:8002/",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "8002",
+                            "path": [
+                                ""
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Direct AI Prediction",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"features\": [6.2, 148, 72, 35, 0, 33.6, 0.627, 50, 1, 1]\n}"
+                        },
+                        "url": {
+                            "raw": "http://localhost:8002/predict",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "8002",
+                            "path": [
+                                "predict"
+                            ]
+                        }
+                    }
+                }
+            ]
+        }
+    ],
+    "variable": [
+        {
+            "key": "patient_id",
+            "value": "replace_with_actual_patient_id"
+        }
+    ]
+}
