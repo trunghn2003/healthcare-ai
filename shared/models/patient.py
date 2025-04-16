@@ -2,16 +2,18 @@
 Shared models for use across services in healthcare-ai system
 """
 from pydantic import BaseModel
-from typing import List, Optional
-from datetime import datetime
+from typing import Optional
 
 
 class PatientBase(BaseModel):
-    name: str
-    date_of_birth: str
-    gender: str
-    contact: str
-    medical_history: List[str] = []
+    pregnancies: int
+    glucose: float
+    blood_pressure: float
+    skin_thickness: float
+    insulin: float
+    bmi: float
+    diabetes_pedigree_function: float
+    age: int
 
 
 class PatientCreate(PatientBase):
@@ -20,29 +22,8 @@ class PatientCreate(PatientBase):
 
 class PatientResponse(PatientBase):
     id: str
-    created_at: datetime
+    diabetes_prediction: Optional[float] = None
+    is_diabetic: Optional[bool] = None
 
     class Config:
-        arbitrary_types_allowed = True
-
-
-class PredictionFeatures(BaseModel):
-    """Input features for disease prediction model"""
-    features: List[float]
-
-
-class PredictionResult(BaseModel):
-    """Result from AI prediction model"""
-    prediction: float
-    probability: float
-    disease_risk: str  # 'low', 'medium', 'high'
-    status: str
-
-
-class HealthAssessment(BaseModel):
-    """Combined health assessment with patient data and prediction"""
-    patient_id: str
-    assessment_date: datetime
-    prediction_result: PredictionResult
-    recommendations: List[str] = []
-    notes: Optional[str] = None
+        from_attributes = True
