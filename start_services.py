@@ -19,7 +19,7 @@ def start_service(name, path, port):
 
 def main():
     # Install requirements for each service
-    services = ["ai_service", "patient_service", "gateway"]
+    services = ["ai_service", "patient_service", "gateway", "frontend"]
     for service in services:
         print(f"Installing requirements for {service}...")
         install_requirements(f"services/{service}")
@@ -28,6 +28,13 @@ def main():
     start_service("ai_service", "services/ai_service", 8001)
     start_service("patient_service", "services/patient_service", 8002)
     start_service("gateway", "services/gateway", 8000)
+
+    # Start Django frontend
+    print("Starting frontend on port 8080...")
+    subprocess.Popen([
+        sys.executable, "services/frontend/manage.py", "runserver",
+        "0.0.0.0:8080"
+    ])
 
     print("\nAll services started!")
     print("Access the API documentation at:")

@@ -21,16 +21,24 @@ except Exception as e:
 @app.post("/predict")
 async def predict_diabetes(patient: PatientBase):
     try:
-        # Convert patient data to numpy array
+        # Convert patient data to numpy array and add engineered features
+        patient_dict = patient.dict()
+
+        # Calculate interaction features
+        glucose_bmi = patient_dict['glucose'] * patient_dict['bmi']
+        age_bmi = patient_dict['age'] * patient_dict['bmi']
+
         features = np.array([[
-            patient.pregnancies,
-            patient.glucose,
-            patient.blood_pressure,
-            patient.skin_thickness,
-            patient.insulin,
-            patient.bmi,
-            patient.diabetes_pedigree_function,
-            patient.age
+            patient_dict['pregnancies'],
+            patient_dict['glucose'],
+            patient_dict['blood_pressure'],
+            patient_dict['skin_thickness'],
+            patient_dict['insulin'],
+            patient_dict['bmi'],
+            patient_dict['diabetes_pedigree_function'],
+            patient_dict['age'],
+            glucose_bmi,  # Additional engineered feature
+            age_bmi      # Additional engineered feature
         ]])
 
         # Scale features

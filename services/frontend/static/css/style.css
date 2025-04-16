@@ -1,0 +1,51 @@
+body {
+    background-color: #f8f9fa;
+}
+
+.card {
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    margin-bottom: 2rem;
+}
+
+.card-header {
+    background-color: #f8f9fa;
+    border-bottom: none;
+    padding: 1.5rem 1rem;
+}
+
+.form-label {
+    font-weight: 500;
+}
+
+.btn-primary {
+    padding: 0.5rem 2rem;
+}
+
+.table {
+    margin-bottom: 0;
+}
+
+.badge {
+    padding: 0.5em 1em;
+}
+
+.alert {
+    margin-bottom: 0;
+}
+
+/* Custom styles for prediction results */
+.prediction-result {
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 15px;
+    }
+
+    .table-responsive {
+        margin: 0 -15px;
+    }
+}
