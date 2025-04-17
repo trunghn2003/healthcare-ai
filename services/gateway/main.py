@@ -63,3 +63,24 @@ async def health_check():
             health_status["ai_service"] = "unhealthy"
 
         return health_status
+
+@app.post("/api/predict")
+async def predict_diabetes(patient_data: dict):
+    async with httpx.AsyncClient() as client:
+        try:
+            # Chuyển tiếp yêu cầu đến AI Service
+            ai_response = await client.post(f"{AI_SERVICE_URL}/predict", json=patient_data)
+            ai_response.raise_for_status()
+            prediction_result = ai_response.json()
+
+            # Lưu kết quả dự đoán cùng với dữ liệu bệnh nhân vào Patient Service
+            patient_with_prediction = {**patient_data, **prediction_result}
+            await client.post(f"{PATIENT_SERVICE_URL}/patients/", json=patient_with_prediction)
+
+            return prediction_result
+        except httpx.HTTPStatusError as e:
+            raise HTTPException(status_code=e.response.status_code,
+                               detail=f"AI Service error: {e.response.text}")
+        except httpx.RequestError:
+            raise HTTPException(status_code=503,
+                               detail="AI Service unavailable")

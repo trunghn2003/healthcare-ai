@@ -44,12 +44,13 @@ async def predict_diabetes(patient: PatientBase):
         # Scale features
         features_scaled = scaler.transform(features)
 
-        # Make prediction
+        # Make prediction and convert to probability using sigmoid
         prediction = model.predict(features_scaled)[0][0]
+        probability = float(1 / (1 + np.exp(-prediction)))  # Apply sigmoid to get probability between 0 and 1
 
         return {
-            "diabetes_prediction": float(prediction),
-            "is_diabetic": bool(prediction > 0.5)
+            "diabetes_prediction": probability,
+            "is_diabetic": bool(probability > 0.5)
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Prediction error: {str(e)}")

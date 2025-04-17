@@ -1,42 +1,220 @@
+:root {
+    --primary: #3f51b5;
+    --primary-light: #757de8;
+    --primary-dark: #002984;
+    --secondary: #4caf50;
+    --secondary-light: #80e27e;
+    --secondary-dark: #087f23;
+    --text-light: #f8f9fa;
+    --text-dark: #212529;
+    --danger: #f44336;
+    --warning: #ff9800;
+    --success: #4caf50;
+}
+
 body {
-    background-color: #f8f9fa;
+    background-color: #f5f5f5;
+    font-family: 'Roboto', 'Segoe UI', sans-serif;
+    color: var(--text-dark);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.navbar {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    padding: 0.8rem 0;
+}
+
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: var(--text-light) !important;
+}
+
+.nav-link {
+    color: var(--text-light) !important;
+    font-weight: 500;
+    margin: 0 0.5rem;
+    transition: all 0.3s;
+}
+
+.nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+}
+
+.container {
+    flex: 1;
 }
 
 .card {
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
     margin-bottom: 2rem;
+    border: none;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
 }
 
 .card-header {
-    background-color: #f8f9fa;
+    background-color: var(--primary);
+    color: var(--text-light);
     border-bottom: none;
-    padding: 1.5rem 1rem;
+    padding: 1.2rem;
+    font-weight: 600;
+}
+
+.card-body {
+    padding: 1.5rem;
 }
 
 .form-label {
     font-weight: 500;
+    color: #555;
+}
+
+.form-control {
+    border-radius: 4px;
+    padding: 0.6rem 1rem;
+    border: 1px solid #ddd;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-control:focus {
+    box-shadow: 0 0 0 0.25rem rgba(63, 81, 181, 0.25);
+    border-color: var(--primary);
 }
 
 .btn-primary {
-    padding: 0.5rem 2rem;
+    background-color: var(--primary);
+    border-color: var(--primary);
+    padding: 0.6rem 2rem;
+    font-weight: 500;
+    border-radius: 4px;
+    transition: all 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-dark);
+    border-color: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .table {
     margin-bottom: 0;
+    background: white;
+    border-radius: 4px;
+}
+
+.table thead {
+    background-color: #f1f1f1;
+}
+
+.table th {
+    font-weight: 600;
+    padding: 12px 15px;
+}
+
+.table td {
+    padding: 12px 15px;
+    vertical-align: middle;
 }
 
 .badge {
-    padding: 0.5em 1em;
+    padding: 0.6em 1em;
+    font-weight: 500;
+    font-size: 0.8rem;
+}
+
+.bg-danger {
+    background-color: var(--danger) !important;
+}
+
+.bg-success {
+    background-color: var(--success) !important;
 }
 
 .alert {
     margin-bottom: 0;
+    border-radius: 8px;
+    padding: 1.2rem;
+}
+
+.alert-success {
+    background-color: rgba(76, 175, 80, 0.1);
+    color: var(--success);
+    border-color: rgba(76, 175, 80, 0.2);
+}
+
+.alert-danger {
+    background-color: rgba(244, 67, 54, 0.1);
+    color: var(--danger);
+    border-color: rgba(244, 67, 54, 0.2);
 }
 
 /* Custom styles for prediction results */
 .prediction-result {
-    font-size: 1.2rem;
-    font-weight: 500;
+    font-size: 1.3rem;
+    font-weight: 600;
+    text-align: center;
+    margin: 1rem 0;
+}
+
+.result-card {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 1.5rem;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.result-probability {
+    font-size: 3rem;
+    font-weight: 700;
+    margin: 1rem 0;
+    color: var(--primary);
+}
+
+.result-gauge {
+    height: 10px;
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    margin: 1rem 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.result-gauge-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    border-radius: 5px;
+    transition: width 1s ease-in-out;
+}
+
+.result-gauge-fill.high-risk {
+    background: linear-gradient(90deg, var(--warning), var(--danger));
+}
+
+.result-gauge-fill.low-risk {
+    background: linear-gradient(90deg, var(--secondary-light), var(--secondary));
+}
+
+.footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 1.5rem 0;
+    margin-top: 2rem;
 }
 
 /* Responsive adjustments */
@@ -44,8 +222,12 @@ body {
     .container {
         padding: 0 15px;
     }
-
+    
     .table-responsive {
         margin: 0 -15px;
+    }
+    
+    .navbar-brand {
+        font-size: 1.2rem;
     }
 }

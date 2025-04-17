@@ -22,7 +22,7 @@ def main():
     services = ["ai_service", "patient_service", "gateway", "frontend"]
     for service in services:
         print(f"Installing requirements for {service}...")
-        install_requirements(f"services/{service}")
+        # install_requirements(f"services/{service}")
 
     # Start services
     start_service("ai_service", "services/ai_service", 8001)

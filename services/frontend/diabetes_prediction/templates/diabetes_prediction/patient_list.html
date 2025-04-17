@@ -1,47 +1,175 @@
 {% extends 'diabetes_prediction/base.html' %}
 
 {% block content %}
-<div class="card">
-    <div class="card-header">
-        <h3 class="text-center">Danh Sách Bệnh Nhân</h3>
-    </div>
-    <div class="card-body">
-        <div class="table-responsive">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Tuổi</th>
-                        <th>BMI</th>
-                        <th>Glucose</th>
-                        <th>Huyết áp</th>
-                        <th>Kết quả dự đoán</th>
-                        <th>Nguy cơ</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for patient in patients %}
-                    <tr>
-                        <td>{{ patient.id|truncatechars:8 }}</td>
-                        <td>{{ patient.age }}</td>
-                        <td>{{ patient.bmi|floatformat:1 }}</td>
-                        <td>{{ patient.glucose|floatformat:1 }}</td>
-                        <td>{{ patient.blood_pressure|floatformat:1 }}</td>
-                        <td>{{ patient.diabetes_prediction|floatformat:2 }}</td>
-                        <td>
-                            <span class="badge {% if patient.is_diabetic %}bg-danger{% else %}bg-success{% endif %}">
-                                {% if patient.is_diabetic %}Cao{% else %}Thấp{% endif %}
-                            </span>
-                        </td>
-                    </tr>
-                    {% empty %}
-                    <tr>
-                        <td colspan="7" class="text-center">Chưa có dữ liệu bệnh nhân</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h3 class="mb-0"><i class="bi bi-people me-2"></i>Danh Sách Bệnh Nhân</h3>
+                <a href="{% url 'home' %}" class="btn btn-primary">
+                    <i class="bi bi-plus-circle me-2"></i>Thêm Bệnh Nhân Mới
+                </a>
+            </div>
+            <div class="card-body p-0">
+                {% if patients %}
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col"><i class="bi bi-file-person me-1"></i>Thông Tin Cá Nhân</th>
+                                <th scope="col"><i class="bi bi-gender-ambiguous me-1"></i>Giới Tính</th>
+                                <th scope="col"><i class="bi bi-droplet me-1"></i>Glucose</th>
+                                <th scope="col"><i class="bi bi-heart-pulse me-1"></i>Huyết Áp</th>
+                                <th scope="col"><i class="bi bi-person-standing me-1"></i>BMI</th>
+                                <th scope="col"><i class="bi bi-capsule me-1"></i>Insulin</th>
+                                <th scope="col"><i class="bi bi-graph-up me-1"></i>Kết Quả</th>
+                                <th scope="col"><i class="bi bi-percent me-1"></i>Tỷ Lệ</th>
+                                <th scope="col"><i class="bi bi-three-dots me-1"></i>Tác Vụ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for patient in patients %}
+                            <tr>
+                                <th scope="row">{{ forloop.counter }}</th>
+                                <td>
+                                    <div class="d-flex flex-column">
+                                        <span class="fw-bold">ID: {{ patient.id|truncatechars:8 }}</span>
+                                        <span class="small text-muted">{{ patient.age }} tuổi</span>
+                                    </div>
+                                </td>
+                                <td>{{ patient.glucose }} mg/dL</td>
+                                <td>{{ patient.blood_pressure }} mmHg</td>
+                                <td>{{ patient.bmi }}</td>
+                                <td>{{ patient.insulin }}</td>
+                                <td>
+                                    {% if patient.is_diabetic %}
+                                    <span class="badge bg-danger">Nguy cơ cao</span>
+                                    {% else %}
+                                    <span class="badge bg-success">Nguy cơ thấp</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="progress flex-grow-1" style="height: 8px;">
+                                            <div class="progress-bar {% if patient.is_diabetic %}bg-danger{% else %}bg-success{% endif %}"
+                                                role="progressbar"
+                                                style="width: {{ patient.diabetes_prediction|floatformat:0 }}%;">
+                                            </div>
+                                        </div>
+                                        <span class="ms-2 small">{{ patient.diabetes_prediction|floatformat:1 }}%</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="card-footer bg-white p-3">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            Tổng số: <span class="fw-bold">{{ patients|length }}</span> bệnh nhân
+                        </div>
+                        <div>
+                            <span class="badge bg-danger me-2">Nguy cơ cao</span>:
+                            <span class="fw-bold">{{ patients|dictsortreversed:"diabetes_prediction"|slice:":5"|length
+                                }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                {% else %}
+                <div class="alert alert-info m-3">
+                    <i class="bi bi-info-circle me-2"></i>Chưa có dữ liệu bệnh nhân. <a href="{% url 'home' %}"
+                        class="alert-link">Thêm bệnh nhân mới</a>
+                </div>
+                {% endif %}
+            </div>
         </div>
+
+        {% if patients %}
+        <div class="card mt-4">
+            <div class="card-header">
+                <h4><i class="bi bi-bar-chart me-2"></i>Phân Tích Dữ Liệu Bệnh Nhân</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title text-center mb-3">Phân Bố Nguy Cơ</h5>
+                                <div class="d-flex justify-content-around text-center">
+                                    {% with high_risk=patients|dictsortreversed:"is_diabetic"|slice:":10"|length %}
+                                    {% with low_risk=patients|length|add:"-high_risk"|add:high_risk %}
+
+                                    <div class="mb-3">
+                                        <div class="d-inline-flex align-items-center justify-content-center rounded-circle bg-danger text-white"
+                                            style="width: 80px; height: 80px;">
+                                            <h3 class="mb-0">{{ high_risk }}</h3>
+                                        </div>
+                                        <p class="mt-2">Nguy cơ cao</p>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <div class="d-inline-flex align-items-center justify-content-center rounded-circle bg-success text-white"
+                                            style="width: 80px; height: 80px;">
+                                            <h3 class="mb-0">{{ low_risk }}</h3>
+                                        </div>
+                                        <p class="mt-2">Nguy cơ thấp</p>
+                                    </div>
+
+                                    {% endwith %}
+                                    {% endwith %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title text-center mb-3">Phân Bố Độ Tuổi</h5>
+                                <div class="d-flex justify-content-around text-center">
+                                    {% with young=patients|dictsort:"age"|slice:":5"|length %}
+                                    {% with middle=patients|dictsort:"age"|slice:"5:15"|length %}
+                                    {% with old=patients|dictsort:"age"|slice:"15:"|length %}
+
+                                    <div class="mb-3">
+                                        <div class="d-inline-flex align-items-center justify-content-center rounded-circle bg-info text-white"
+                                            style="width: 60px; height: 60px;">
+                                            <h5 class="mb-0">{{ young }}</h5>
+                                        </div>
+                                        <p class="mt-2">≤ 30 tuổi</p>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <div class="d-inline-flex align-items-center justify-content-center rounded-circle bg-primary text-white"
+                                            style="width: 60px; height: 60px;">
+                                            <h5 class="mb-0">{{ middle }}</h5>
+                                        </div>
+                                        <p class="mt-2">31-50 tuổi</p>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <div class="d-inline-flex align-items-center justify-content-center rounded-circle bg-secondary text-white"
+                                            style="width: 60px; height: 60px;">
+                                            <h5 class="mb-0">{{ old }}</h5>
+                                        </div>
+                                        <p class="mt-2">> 50 tuổi</p>
+                                    </div>
+
+                                    {% endwith %}
+                                    {% endwith %}
+                                    {% endwith %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
     </div>
 </div>
 {% endblock %}
