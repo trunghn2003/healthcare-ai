@@ -10,7 +10,7 @@
             <div class="card-body">
                 <form method="post">
                     {% csrf_token %}
-                    
+
                     <!-- Thông tin cá nhân -->
                     <div class="card mb-3">
                         <div class="card-header bg-light">
@@ -26,7 +26,7 @@
                                         </label>
                                         <div class="input-group">
                                             <span class="input-group-text"><i class="bi bi-person-badge"></i></span>
-                                            <input type="text" name="{{ form.full_name.html_name }}" 
+                                            <input type="text" name="{{ form.full_name.html_name }}"
                                                 id="{{ form.full_name.id_for_label }}" class="form-control"
                                                 value="{{ form.full_name.value|default:'' }}" required>
                                         </div>
@@ -40,7 +40,7 @@
                                         </label>
                                         <div class="input-group">
                                             <span class="input-group-text"><i class="bi bi-calendar-date"></i></span>
-                                            <input type="date" name="{{ form.date_of_birth.html_name }}" 
+                                            <input type="date" name="{{ form.date_of_birth.html_name }}"
                                                 id="{{ form.date_of_birth.id_for_label }}" class="form-control"
                                                 value="{{ form.date_of_birth.value|default:'' }}" required>
                                         </div>
@@ -56,12 +56,15 @@
                                         </label>
                                         <div class="input-group">
                                             <span class="input-group-text"><i class="bi bi-gender-ambiguous"></i></span>
-                                            <select name="{{ form.gender.html_name }}" 
+                                            <select name="{{ form.gender.html_name }}"
                                                 id="{{ form.gender.id_for_label }}" class="form-control" required>
                                                 <option value="">Chọn giới tính</option>
-                                                <option value="Nam" {% if form.gender.value == "Nam" %}selected{% endif %}>Nam</option>
-                                                <option value="Nữ" {% if form.gender.value == "Nữ" %}selected{% endif %}>Nữ</option>
-                                                <option value="Khác" {% if form.gender.value == "Khác" %}selected{% endif %}>Khác</option>
+                                                <option value="Nam" {% if form.gender.value=="Nam" %}selected{% endif
+                                                    %}>Nam</option>
+                                                <option value="Nữ" {% if form.gender.value=="Nữ" %}selected{% endif %}>
+                                                    Nữ</option>
+                                                <option value="Khác" {% if form.gender.value=="Khác" %}selected{% endif
+                                                    %}>Khác</option>
                                             </select>
                                         </div>
                                     </div>
@@ -73,7 +76,7 @@
                                         </label>
                                         <div class="input-group">
                                             <span class="input-group-text"><i class="bi bi-telephone"></i></span>
-                                            <input type="tel" name="{{ form.phone_number.html_name }}" 
+                                            <input type="tel" name="{{ form.phone_number.html_name }}"
                                                 id="{{ form.phone_number.id_for_label }}" class="form-control"
                                                 value="{{ form.phone_number.value|default:'' }}">
                                         </div>
@@ -88,7 +91,7 @@
                                         </label>
                                         <div class="input-group">
                                             <span class="input-group-text"><i class="bi bi-house"></i></span>
-                                            <input type="text" name="{{ form.address.html_name }}" 
+                                            <input type="text" name="{{ form.address.html_name }}"
                                                 id="{{ form.address.id_for_label }}" class="form-control"
                                                 value="{{ form.address.value|default:'' }}">
                                         </div>
@@ -97,7 +100,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <!-- Thông tin y tế -->
                     <div class="card mb-3">
                         <div class="card-header bg-light">
@@ -113,9 +116,9 @@
                                         </label>
                                         <div class="input-group">
                                             <span class="input-group-text"><i class="bi bi-123"></i></span>
-                                            <input type="number" min="0" name="{{ form.pregnancies.html_name }}" 
-                                                   id="{{ form.pregnancies.id_for_label }}" class="form-control"
-                                                   value="{{ form.pregnancies.value|default:'' }}" required>
+                                            <input type="number" min="0" name="{{ form.pregnancies.html_name }}"
+                                                id="{{ form.pregnancies.id_for_label }}" class="form-control"
+                                                value="{{ form.pregnancies.value|default:'' }}" required>
                                         </div>
                                         <div class="form-text">Số lần mang thai</div>
                                     </div>
@@ -127,9 +130,9 @@
                                         </label>
                                         <div class="input-group">
                                             <span class="input-group-text"><i class="bi bi-droplet"></i></span>
-                                            <input type="number" step="any" min="0" name="{{ form.glucose.html_name }}" 
-                                                   id="{{ form.glucose.id_for_label }}" class="form-control"
-                                                   value="{{ form.glucose.value|default:'' }}" required>
+                                            <input type="number" step="any" min="0" name="{{ form.glucose.html_name }}"
+                                                id="{{ form.glucose.id_for_label }}" class="form-control"
+                                                value="{{ form.glucose.value|default:'' }}" required>
                                         </div>
                                         <div class="form-text">Giá trị bình thường: 70-99 mg/dL</div>
                                     </div>
@@ -141,9 +144,10 @@
                                         </label>
                                         <div class="input-group">
                                             <span class="input-group-text"><i class="bi bi-heart-pulse"></i></span>
-                                            <input type="number" step="any" min="0" name="{{ form.blood_pressure.html_name }}" 
-                                                   id="{{ form.blood_pressure.id_for_label }}" class="form-control"
-                                                   value="{{ form.blood_pressure.value|default:'' }}" required>
+                                            <input type="number" step="any" min="0"
+                                                name="{{ form.blood_pressure.html_name }}"
+                                                id="{{ form.blood_pressure.id_for_label }}" class="form-control"
+                                                value="{{ form.blood_pressure.value|default:'' }}" required>
                                         </div>
                                         <div class="form-text">Giá trị bình thường: 60-80 mmHg</div>
                                     </div>
@@ -155,14 +159,15 @@
                                         </label>
                                         <div class="input-group">
                                             <span class="input-group-text"><i class="bi bi-rulers"></i></span>
-                                            <input type="number" step="any" min="0" name="{{ form.skin_thickness.html_name }}" 
-                                                   id="{{ form.skin_thickness.id_for_label }}" class="form-control"
-                                                   value="{{ form.skin_thickness.value|default:'' }}" required>
+                                            <input type="number" step="any" min="0"
+                                                name="{{ form.skin_thickness.html_name }}"
+                                                id="{{ form.skin_thickness.id_for_label }}" class="form-control"
+                                                value="{{ form.skin_thickness.value|default:'' }}" required>
                                         </div>
                                         <div class="form-text">Đo tại cơ tam đầu (mm)</div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label for="{{ form.insulin.id_for_label }}" class="form-label">
@@ -171,9 +176,9 @@
                                         </label>
                                         <div class="input-group">
                                             <span class="input-group-text"><i class="bi bi-capsule"></i></span>
-                                            <input type="number" step="any" min="0" name="{{ form.insulin.html_name }}" 
-                                                   id="{{ form.insulin.id_for_label }}" class="form-control"
-                                                   value="{{ form.insulin.value|default:'' }}" required>
+                                            <input type="number" step="any" min="0" name="{{ form.insulin.html_name }}"
+                                                id="{{ form.insulin.id_for_label }}" class="form-control"
+                                                value="{{ form.insulin.value|default:'' }}" required>
                                         </div>
                                         <div class="form-text">Đo sau 2 giờ (mu U/ml)</div>
                                     </div>
@@ -185,23 +190,26 @@
                                         </label>
                                         <div class="input-group">
                                             <span class="input-group-text"><i class="bi bi-person-standing"></i></span>
-                                            <input type="number" step="any" min="0" name="{{ form.bmi.html_name }}" 
-                                                   id="{{ form.bmi.id_for_label }}" class="form-control"
-                                                   value="{{ form.bmi.value|default:'' }}" required>
+                                            <input type="number" step="any" min="0" name="{{ form.bmi.html_name }}"
+                                                id="{{ form.bmi.id_for_label }}" class="form-control"
+                                                value="{{ form.bmi.value|default:'' }}" required>
                                         </div>
                                         <div class="form-text">Giá trị bình thường: 18.5-24.9</div>
                                     </div>
 
                                     <div class="mb-3">
-                                        <label for="{{ form.diabetes_pedigree_function.id_for_label }}" class="form-label">
+                                        <label for="{{ form.diabetes_pedigree_function.id_for_label }}"
+                                            class="form-label">
                                             <i class="bi bi-asterisk me-1 small text-danger"></i>
                                             {{ form.diabetes_pedigree_function.label }}
                                         </label>
                                         <div class="input-group">
                                             <span class="input-group-text"><i class="bi bi-diagram-3"></i></span>
-                                            <input type="number" step="any" min="0" name="{{ form.diabetes_pedigree_function.html_name }}" 
-                                                   id="{{ form.diabetes_pedigree_function.id_for_label }}" class="form-control"
-                                                   value="{{ form.diabetes_pedigree_function.value|default:'' }}" required>
+                                            <input type="number" step="any" min="0"
+                                                name="{{ form.diabetes_pedigree_function.html_name }}"
+                                                id="{{ form.diabetes_pedigree_function.id_for_label }}"
+                                                class="form-control"
+                                                value="{{ form.diabetes_pedigree_function.value|default:'' }}" required>
                                         </div>
                                         <div class="form-text">Đánh giá lịch sử gia đình</div>
                                     </div>
@@ -213,9 +221,9 @@
                                         </label>
                                         <div class="input-group">
                                             <span class="input-group-text"><i class="bi bi-calendar3"></i></span>
-                                            <input type="number" min="0" name="{{ form.age.html_name }}" 
-                                                   id="{{ form.age.id_for_label }}" class="form-control"
-                                                   value="{{ form.age.value|default:'' }}" required>
+                                            <input type="number" min="0" name="{{ form.age.html_name }}"
+                                                id="{{ form.age.id_for_label }}" class="form-control"
+                                                value="{{ form.age.value|default:'' }}" required>
                                         </div>
                                         <div class="form-text">Tuổi tính theo năm</div>
                                     </div>
@@ -223,7 +231,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="text-center mt-3">
                         <button type="submit" class="btn btn-primary btn-lg">
                             <i class="bi bi-calculator me-2"></i>Dự Đoán
@@ -240,49 +248,52 @@
             </div>
             <div class="card-body">
                 {% if prediction_result.error %}
-                    <div class="alert alert-danger">
-                        <i class="bi bi-exclamation-triangle me-2"></i>{{ prediction_result.error }}
-                    </div>
+                <div class="alert alert-danger">
+                    <i class="bi bi-exclamation-triangle me-2"></i>{{ prediction_result.error }}
+                </div>
                 {% else %}
-                    <div class="result-card py-4">
-                        <h5 class="prediction-result mb-4">
-                            {% if prediction_result.is_diabetic %}
-                                <span class="text-danger"><i class="bi bi-exclamation-circle me-2"></i>Có nguy cơ mắc bệnh tiểu đường</span>
-                            {% else %}
-                                <span class="text-success"><i class="bi bi-check-circle me-2"></i>Không có nguy cơ mắc bệnh tiểu đường</span>
-                            {% endif %}
-                        </h5>
-                        
-                        {% with probability=prediction_result.diabetes_prediction|floatformat:2 %}
-                        <div class="result-probability">{{ probability }}%</div>
-                        
-                        <div class="result-gauge my-4 mx-auto" style="max-width: 80%;">
-                            <div class="result-gauge-fill {% if prediction_result.is_diabetic %}high-risk{% else %}low-risk{% endif %}" 
-                                 data-percent="{{ probability }}" 
-                                 style="width: 0%;">
-                            </div>
-                        </div>
-                        
-                        <p class="mb-1">
-                            {% if prediction_result.is_diabetic %}
-                                <span class="fw-bold text-danger">Nguy cơ cao</span>: Khả năng mắc bệnh tiểu đường là {{ probability }}%
-                            {% else %}
-                                <span class="fw-bold text-success">Nguy cơ thấp</span>: Khả năng mắc bệnh tiểu đường là {{ probability }}%
-                            {% endif %}
-                        </p>
-                        {% endwith %}
-                        
-                        <div class="mt-4 text-muted small">
-                            <i class="bi bi-info-circle me-1"></i>
-                            Lưu ý: Đây chỉ là kết quả dự đoán từ trí tuệ nhân tạo, không thay thế cho chẩn đoán y khoa.
+                <div class="result-card py-4">
+                    <h5 class="prediction-result mb-4">
+                        {% if prediction_result.is_diabetic %}
+                        <span class="text-danger"><i class="bi bi-exclamation-circle me-2"></i>Có nguy cơ mắc bệnh tiểu
+                            đường</span>
+                        {% else %}
+                        <span class="text-success"><i class="bi bi-check-circle me-2"></i>Không có nguy cơ mắc bệnh tiểu
+                            đường</span>
+                        {% endif %}
+                    </h5>
+
+                    {% with probability=prediction_result.diabetes_prediction|floatformat:2 %}
+                    <div class="result-probability">{{ probability }}%</div>
+
+                    <div class="result-gauge my-4 mx-auto" style="max-width: 80%;">
+                        <div class="result-gauge-fill {% if prediction_result.is_diabetic %}high-risk{% else %}low-risk{% endif %}"
+                            data-percent="{{ probability }}" style="width: 0%;">
                         </div>
                     </div>
+
+                    <p class="mb-1">
+                        {% if prediction_result.is_diabetic %}
+                        <span class="fw-bold text-danger">Nguy cơ cao</span>: Khả năng mắc bệnh tiểu đường là {{
+                        probability }}%
+                        {% else %}
+                        <span class="fw-bold text-success">Nguy cơ thấp</span>: Khả năng mắc bệnh tiểu đường là {{
+                        probability }}%
+                        {% endif %}
+                    </p>
+                    {% endwith %}
+
+                    <div class="mt-4 text-muted small">
+                        <i class="bi bi-info-circle me-1"></i>
+                        Lưu ý: Đây chỉ là kết quả dự đoán từ trí tuệ nhân tạo, không thay thế cho chẩn đoán y khoa.
+                    </div>
+                </div>
                 {% endif %}
             </div>
         </div>
         {% endif %}
     </div>
-    
+
     <div class="col-lg-4">
         <div class="card">
             <div class="card-header">
@@ -293,12 +304,12 @@
                     <h5><i class="bi bi-shield-check me-2 text-primary"></i>Về Dự Đoán</h5>
                     <p>Mô hình AI phân tích 8 chỉ số sức khỏe để đánh giá nguy cơ mắc bệnh tiểu đường.</p>
                 </div>
-                
+
                 <div class="mb-4">
                     <h5><i class="bi bi-graph-up-arrow me-2 text-primary"></i>Độ Chính Xác</h5>
                     <p>Mô hình được huấn luyện với độ chính xác trên 80% trên tập dữ liệu kiểm tra.</p>
                 </div>
-                
+
                 <div>
                     <h5><i class="bi bi-clipboard-data me-2 text-primary"></i>Các Yếu Tố Ảnh Hưởng</h5>
                     <ul class="list-group">
@@ -324,9 +335,10 @@
                         </li>
                     </ul>
                 </div>
-                
+
                 <div class="mt-4 text-center">
-                    <a href="https://www.idf.org/aboutdiabetes/what-is-diabetes.html" class="btn btn-outline-primary" target="_blank">
+                    <a href="https://www.idf.org/aboutdiabetes/what-is-diabetes.html" class="btn btn-outline-primary"
+                        target="_blank">
                         <i class="bi bi-book me-2"></i>Tìm hiểu thêm về bệnh tiểu đường
                     </a>
                 </div>
