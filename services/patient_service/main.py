@@ -13,23 +13,33 @@ patients_db = {}
 AI_SERVICE_URL = "http://localhost:8001/predict"
 
 @app.post("/patients/", response_model=PatientResponse)
-async def create_patient(patient: PatientCreate):
+async def create_patient(patient: dict):
     try:
         # Generate patient ID
         patient_id = str(uuid.uuid4())
 
-        # Get prediction from AI service
-        async with httpx.AsyncClient() as client:
-            response = await client.post(AI_SERVICE_URL, json=patient.dict())
-            prediction_data = response.json()
+        # Kiểm tra xem dữ liệu đã có kết quả dự đoán từ Gateway chưa
+        if "diabetes_prediction" in patient and "is_diabetic" in patient:
+            # Sử dụng kết quả dự đoán đã có
+            patient_data = {
+                "id": patient_id,
+                **patient
+            }
+        else:
+            # Nếu chưa có kết quả dự đoán, gọi AI Service
+            async with httpx.AsyncClient() as client:
+                response = await client.post(AI_SERVICE_URL, json=patient)
+                prediction_data = response.json()
 
-        # Create patient record with prediction
-        patient_data = {
-            "id": patient_id,
-            **patient.dict(),
-            "diabetes_prediction": prediction_data["diabetes_prediction"],
-            "is_diabetic": prediction_data["is_diabetic"]
-        }
+            patient_data = {
+                "id": patient_id,
+                **patient,
+                "diabetes_prediction": prediction_data["diabetes_prediction"],
+                "is_diabetic": prediction_data["is_diabetic"]
+            }
+
+        # In thông tin để debug
+        print(f"Saving patient data: {patient_data}")
 
         # Save to database
         patients_db[patient_id] = patient_data
